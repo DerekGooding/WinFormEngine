@@ -36,10 +36,15 @@ namespace WindowsFormsApp1
             timer.Start();
 
             var player = new Player(_scene, Color.Green, new Vector2(32, 32), new Vector2(32, 32), new Vector2(this.ClientRectangle.Width / 2 - 16, this.ClientRectangle.Height / 2 + 16));
-            var wall_1 = new Wall(_scene, Color.Gray, new Vector2(128, 32), new Vector2(128, 32), new Vector2(this.ClientRectangle.Width / 2 - 64, this.ClientRectangle.Height / 2 + 48));
+            
+            var wall_1 = new Wall(_scene, Color.Gray, new Vector2(800, 32), new Vector2(800, 32), new Vector2(this.ClientRectangle.Width / 2 - 400, this.ClientRectangle.Height / 2 + 48));
+            var wall_2 = new Wall(_scene, Color.Gray, new Vector2(200, 32), new Vector2(200, 32), new Vector2(this.ClientRectangle.Width + 100, this.ClientRectangle.Height / 2 + 60));
+            var wall_3 = new Wall(_scene, Color.Gray, new Vector2(32, 300), new Vector2(32, 300), new Vector2(this.ClientRectangle.X - 25, this.ClientRectangle.Y - 25));
 
             _scene.AddObject(player);
             _scene.AddObject(wall_1);
+            _scene.AddObject(wall_2);
+            _scene.AddObject(wall_3);
 
             _scene.MainCamera.AllowFollow = true;
             _scene.MainCamera.Target = player;
@@ -91,9 +96,6 @@ namespace WindowsFormsApp1
             moviment *= _speed;
 
             MoveAndCollide(moviment);
-
-            if (IsOnFloor())
-                Console.WriteLine("On Ground");
         }
     }
 
@@ -452,8 +454,8 @@ namespace WindowsFormsApp1
 
                 if (item.GraphicsComponent != null)
                 {
-                    if ((item.Position.X >= camera.Position.X && item.Position.X < camera.Position.X + camera.Size.X) &&
-                        (item.Position.Y >= camera.Position.Y && item.Position.Y < camera.Position.Y + camera.Size.Y)) 
+                    if ((item.Position.X + item.Size.X >= camera.Position.X && item.Position.X < camera.Position.X + camera.Size.X) &&
+                        (item.Position.Y + item.Size.Y >= camera.Position.Y && item.Position.Y < camera.Position.Y + camera.Size.Y)) 
                     {
                         g.FillRectangle(item.GraphicsComponent.brush, pos.X, pos.Y, size.X, size.Y);
                     }
